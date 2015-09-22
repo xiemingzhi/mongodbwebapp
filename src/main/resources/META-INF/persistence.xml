@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<persistence version="2.0"
+   xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+        http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+   <persistence-unit name="primary" transaction-type="JTA">
+      <!-- If you are running in a production environment, add a managed 
+         data source, this example data source is just for development and testing! -->
+      <!-- The datasource is deployed as WEB-INF/testrest-ds.xml, you
+         can find it in the source at src/main/webapp/WEB-INF/testrest-ds.xml -->
+        
+      <provider>org.hibernate.ogm.jpa.HibernateOgmPersistence</provider>
+	  <class>com.fuhu.server.model.Member</class>
+      <properties>
+           <!-- 
+         hibernate.ogm.datastore.hostThe hostname of the MongoDB instance. The default value is 127.0.0.1. 
+         hibernate.ogm.datastore.portThe port used by the MongoDB instance. The default value is 27017. 
+         hibernate.ogm.datastore.databaseThe database to connect to. This property has no default value. 
+         hibernate.ogm.datastore.usernameThe username used when connecting to the MongoDB server. This property has no default value. 
+         hibernate.ogm.datastore.passwordThe password used to connect to the MongoDB server. This property has no default value. This property is ignored if the username isn’t specified. 
+          -->
+          <property name="hibernate.ogm.datastore.provider" value="org.hibernate.ogm.datastore.mongodb.impl.MongoDBDatastoreProvider"/>
+          <property name="hibernate.ogm.datastore.host" value="localhost"/>
+          <property name="hibernate.ogm.datastore.port" value="27017"/>
+          <property name="hibernate.ogm.datastore.database" value="memberdb"/>
+          <property name="hibernate.ogm.datastore.username" value="siteUserAdmin"/>
+          <property name="hibernate.ogm.datastore.password" value="password12345678"/>
+          
+          <!-- defines which JTA Transaction we plan to use -->
+            <property name="hibernate.transaction.jta.platform"
+                      value="org.hibernate.service.jta.platform.internal.JBossStandAloneJtaPlatform"/>
+            
+         <!-- Properties for Hibernate -->
+         <property name="hibernate.hbm2ddl.auto" value="create-drop" />
+         <property name="hibernate.show_sql" value="false" />
+      </properties>
+   </persistence-unit>
+</persistence>
